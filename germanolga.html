@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Свадебное приглашение | Герман & Ольга</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Petrobrus&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #fef7e6;
+            --color-primary: #9e2d1c;
+            --color-secondary: #c6913e;
+            --color-dark: #2c241a;
+            --color-light: #fff8e7;
+            --color-accent: #8b3c1c;
+            --border-radius-card: clamp(32px, 8vw, 64px);
+        }
+
+        body {
+            background: var(--color-bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--color-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .pattern-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 70, 128, 0.03) 2%, transparent 2.5%),
+                              repeating-linear-gradient(45deg, rgba(200, 160, 110, 0.02) 0px, rgba(200, 160, 110, 0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(12px, 4vw, 20px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .invitation-card {
+            background: rgba(255, 252, 240, 0.95);
+            backdrop-filter: blur(2px);
+            border-radius: var(--border-radius-card) clamp(24px, 6vw, 48px) var(--border-radius-card) clamp(24px, 6vw, 48px);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,200,0.8);
+            border: 1px solid #dac29c;
+            padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 1.8rem) clamp(2rem, 6vw, 3rem);
+            transition: all 0.3s ease;
+        }
+
+        .border-russian {
+            position: relative;
+            padding: clamp(8px, 3vw, 20px);
+        }
+        .border-russian::before {
+            content: "";
+            position: absolute;
+            top: clamp(8px, 2vw, 15px);
+            left: clamp(8px, 2vw, 15px);
+            right: clamp(8px, 2vw, 15px);
+            bottom: clamp(8px, 2vw, 15px);
+            border: 2px solid #d6482b;
+            border-radius: clamp(32px, 6vw, 48px) clamp(16px, 4vw, 24px) clamp(32px, 6vw, 48px) clamp(16px, 4vw, 24px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .title-russian {
+            font-family: 'Petrobrus', 'Georgia', cursive;
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            text-align: center;
+            color: var(--color-primary);
+            text-shadow: 2px 2px 0 rgba(218, 165, 32, 0.3);
+            letter-spacing: 2px;
+            margin-top: 0.2rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+            letter-spacing: 1px;
+            color: #b45f2b;
+            border-top: 2px solid #e4c896;
+            border-bottom: 2px solid #e4c896;
+            display: inline-block;
+            width: auto;
+            margin: 0.5rem auto;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+
+        .names {
+            font-family: 'Petrobrus', cursive;
+            font-size: clamp(2rem, 8vw, 3.3rem);
+            text-align: center;
+            line-height: 1.2;
+            margin: 0.5rem 0;
+            background: linear-gradient(135deg, #2b5e2b, #c4802c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 0.8rem 0;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            color: var(--color-secondary);
+            letter-spacing: 8px;
+        }
+
+        .invite-text {
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            text-align: center;
+            max-width: 550px;
+            margin: 1rem auto;
+            font-style: italic;
+            background: var(--color-light);
+            padding: clamp(0.8rem, 4vw, 1rem);
+            border-radius: clamp(30px, 8vw, 40px) clamp(12px, 4vw, 16px) clamp(30px, 8vw, 40px) clamp(12px, 4vw, 16px);
+            box-shadow: inset 0 0 0 1px #ffe6b3, 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            margin: clamp(1.5rem, 5vw, 2rem) 0;
+        }
+
+        .detail-card {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            padding: clamp(0.8rem, 3vw, 1rem) clamp(1rem, 4vw, 1.8rem);
+            border-radius: clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px) clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px);
+            text-align: center;
+            flex: 1;
+            min-width: clamp(130px, 25vw, 180px);
+            border: 1px solid #e7cf9e;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .detail-card:hover {
+            transform: translateY(-5px);
+            background: #fff5e6;
+        }
+        @media (max-width: 768px) {
+            .detail-card:hover {
+                transform: none;
+            }
+        }
+        .detail-card i {
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            color: #c0692c;
+            margin-bottom: 0.5rem;
+        }
+        .detail-card h3 {
+            font-size: clamp(0.75rem, 2.5vw, 1rem);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #8b4513;
+        }
+        .detail-card p {
+            font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+            font-weight: 600;
+            color: var(--color-dark);
+        }
+        .detail-card small {
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+        }
+
+        .location-block {
+            margin: clamp(1.5rem, 5vw, 2rem) 0;
+            background: #faf1df;
+            border-radius: clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px) clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px);
+            padding: clamp(1rem, 4vw, 1.2rem);
+            text-align: center;
+            border: 1px dashed #e2bc7c;
+        }
+        .location-block p {
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+        .btn-map {
+            display: inline-block;
+            background: var(--color-accent);
+            color: #ffefcf;
+            padding: clamp(0.6rem, 2.5vw, 0.7rem) clamp(1.2rem, 5vw, 1.8rem);
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.8rem;
+            transition: all 0.2s ease;
+            border: 1px solid #e2a743;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+            cursor: pointer;
+        }
+        .btn-map:active {
+            transform: scale(0.97);
+        }
+
+        .countdown-box {
+            background: #efe3ce;
+            border-radius: clamp(45px, 10vw, 64px) clamp(20px, 6vw, 24px) clamp(45px, 10vw, 64px) clamp(20px, 6vw, 24px);
+            padding: clamp(0.8rem, 4vw, 1rem);
+            margin: clamp(1.5rem, 5vw, 2rem) 0;
+            text-align: center;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .timer-unit {
+            background: #ffffffc9;
+            padding: clamp(0.4rem, 2vw, 0.5rem) clamp(0.6rem, 2.5vw, 1rem);
+            border-radius: clamp(24px, 6vw, 32px);
+            min-width: clamp(60px, 15vw, 70px);
+            font-weight: bold;
+            box-shadow: inset 0 0 0 1px #fff8e0, 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .timer-number {
+            font-size: clamp(1.3rem, 6vw, 2rem);
+            font-weight: 800;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .info-blocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        .info-block {
+            flex: 1;
+            background: #fef3e0;
+            border-radius: clamp(24px, 6vw, 28px);
+            padding: clamp(0.6rem, 3vw, 0.8rem);
+            text-align: center;
+            min-width: clamp(140px, 40%, 200px);
+        }
+        .info-block h4 {
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            margin: 0.3rem 0;
+        }
+        .info-block p {
+            font-size: clamp(0.75rem, 2.8vw, 0.85rem);
+        }
+
+        /* Блок с цветовой гаммой и примерами одежды */
+        .style-gallery {
+            margin: 2rem 0;
+            background: #fffaf0;
+            border-radius: clamp(35px, 8vw, 48px);
+            padding: clamp(1.2rem, 4vw, 1.8rem);
+            border: 1px solid #e8d5b5;
+        }
+
+        .style-title {
+            text-align: center;
+            font-family: 'Petrobrus', cursive;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .style-subtitle {
+            text-align: center;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+            color: #7a5a42;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Цветовая палитра */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .color-item {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .color-circle {
+            width: clamp(60px, 12vw, 80px);
+            height: clamp(60px, 12vw, 80px);
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 2px solid white;
+            transition: transform 0.2s;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .color-name {
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-weight: 600;
+            color: #4a3724;
+        }
+
+        .color-desc {
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
+            color: #8b7355;
+        }
+
+        /* Примеры одежды */
+        .outfit-examples {
+            text-align: center;
+        }
+
+        .outfit-title {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e8d5b5;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .outfit-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .outfit-card {
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+            background: white;
+            border-radius: 24px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .outfit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .outfit-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .outfit-card h4 {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .outfit-card p {
+            font-size: 0.75rem;
+            color: #6b5b4e;
+            line-height: 1.3;
+        }
+
+        /* Ссылка на Pinterest */
+        .style-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .style-link a {
+            display: inline-block;
+            background: var(--color-accent);
+            color: #ffefcf;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .style-link a:hover {
+            background: #aa4a23;
+            transform: scale(1.02);
+        }
+
+        .russian-quote {
+            text-align: center;
+            font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+            margin-top: 1.5rem;
+            color: #7a5a42;
+            border-top: 1px solid #e4cca8;
+            padding-top: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            margin-top: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .birch-decor {
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            font-size: clamp(4rem, 15vw, 8rem);
+            opacity: 0.08;
+            pointer-events: none;
+            transform: rotate(5deg);
+            z-index: 1;
+        }
+
+        @media (max-width: 480px) {
+            .invitation-card {
+                padding: 1rem;
+            }
+            .border-russian::before {
+                border-width: 1px;
+            }
+            .outfit-card {
+                min-width: 130px;
+            }
+            .color-circle {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .event-details {
+                gap: 1.5rem;
+            }
+            .detail-card {
+                min-width: 150px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+<div class="pattern-bg"></div>
+<div class="birch-decor">🌿🇷🇺🍂</div>
+<div class="container">
+    <div class="invitation-card border-russian">
+        <div style="text-align: center;">
+            <span class="subtitle">Дорогие родные и друзья!</span>
+        </div>
+        <h1 class="title-russian">Свадебное<br>приглашение</h1>
+        <div class="names">
+            ГЕРМАН &<br> ОЛЬГА
+        </div>
+        <div class="divider">
+            <i class="fas fa-heart"></i> <i class="fas fa-ring"></i> <i class="fas fa-dove"></i>
+        </div>
+        <div class="invite-text">
+            «Сердцу милый человек — на всю жизнь, на целый век». <br>
+            Имеем честь пригласить Вас разделить с нами радость бракосочетания.
+        </div>
+
+        <div class="event-details">
+            <div class="detail-card">
+                <i class="far fa-calendar-alt"></i>
+                <h3>Дата</h3>
+                <p>08 августа 2026</p>
+                <small>Суббота</small>
+            </div>
+            <div class="detail-card">
+                <i class="fas fa-hourglass-half"></i>
+                <h3>Время</h3>
+                <p>16:00</p>
+                <small>Сбор гостей</small>
+            </div>
+            <div class="detail-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Место</h3>
+                <p>«Берёза»<br>г. Отрадный</p>
+            </div>
+        </div>
+
+        <div class="location-block">
+            <i class="fas fa-church" style="font-size: clamp(1.3rem, 6vw, 1.8rem); color:#bc6f2c;"></i>
+            <p style="font-weight:500; margin:0.3rem 0">Торжественная церемония и банкет в стиле «А-ля рус»</p>
+            <p><strong>Адрес:</strong> Самарская область, г. Отрадный, Советская улица 103/1, кафе «Берёза»</p>
+            <a href="https://yandex.ru/maps/?text=Самарская+область,+г.Отрадный,+Советская+улица+103/1&mode=search" class="btn-map" target="_blank"><i class="fas fa-location-dot"></i> Построить маршрут</a>
+            <div style="font-size:clamp(0.7rem, 2.5vw, 0.8rem); margin-top:8px;"><i class="fas fa-parking"></i> Есть место для парковки &nbsp;|&nbsp; <i class="fas fa-wheelchair"></i> Доступная среда</div>
+        </div>
+
+        <div class="countdown-box">
+            <i class="fas fa-hourglass-start"></i> До нашего торжества осталось:
+            <div class="countdown-timer" id="countdown">
+                <div class="timer-unit"><div class="timer-number" id="days">00</div> дней</div>
+                <div class="timer-unit"><div class="timer-number" id="hours">00</div> часов</div>
+                <div class="timer-unit"><div class="timer-number" id="minutes">00</div> минут</div>
+                <div class="timer-unit"><div class="timer-number" id="seconds">00</div> секунд</div>
+            </div>
+            <div style="margin-top: 10px; font-style:italic; font-size: clamp(0.8rem, 3vw, 0.9rem);">🍞 Хлеб-соль, жаркие пляски и задушевные песни!</div>
+        </div>
+
+        <div class="info-blocks">
+            <div class="info-block">
+                <i class="fas fa-dress"></i> <i class="fas fa-tshirt"></i>
+                <h4>🌟 Дресс-код</h4>
+                <p>Приветствуются наряды в русском стиле. Но можно и классический наряд :)</p>
+            </div>
+            <div class="info-block">
+                <i class="fas fa-gift"></i>
+                <h4>🎁 Вместо подарков</h4>
+                <p>Ваше внимание и доброе слово — лучший дар! Возможен конверт на наш домашний очаг.</p>
+            </div>
+        </div>
+
+        <!-- БЛОК С ЦВЕТОВОЙ ГАММОЙ И ПРИМЕРАМИ ОДЕЖДЫ -->
+        <div class="style-gallery">
+            <div class="style-title">
+                <i class="fas fa-palette"></i> Стиль и цветовая гамма
+            </div>
+            <div class="style-subtitle">
+                Вдохновение для вашего образа 🌸
+            </div>
+
+            <!-- Цветовая палитра свадьбы -->
+            <div class="color-palette">
+                <div class="color-item">
+                    <div class="color-circle" style="background: #8B4513;"></div>
+                    <div class="color-name">Терракотовый</div>
+                    <div class="color-desc">Основной цвет</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-circle" style="background: #DAA520;"></div>
+                    <div class="color-name">Золотой</div>
+                    <div class="color-desc">Акцентный</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-circle" style="background: #F5F5DC;"></div>
+                    <div class="color-name">Слоновая кость</div>
+                    <div class="color-desc">Базовый</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-circle" style="background: #2E5E2E;"></div>
+                    <div class="color-name">Изумрудный</div>
+                    <div class="color-desc">Дополнительный</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-circle" style="background: #CD853F;"></div>
+                    <div class="color-name">Персиковый</div>
+                    <div class="color-desc">Нежный акцент</div>
+                </div>
+            </div>
+
+<div class="inspo-grid">
+    <div class="inspo-item" onclick="openModal('https://getfile.dokpub.com/yandex/get/https://yadi.sk/i/zyYvb-xVGqa-_g')">
+        <img src="https://getfile.dokpub.com/yandex/get/https://yadi.sk/i/zyYvb-xVGqa-_g" 
+		
+		
+		alt="Пример платья">
+        <div class="inspo-caption">✨ Женский образ</div>
+    </div>
+    <div class="inspo-item" onclick="openModal('https://getfile.dokpub.com/yandex/get/Ваша_ссылка_2')">
+        <img src="https://getfile.dokpub.com/yandex/get/https://yadi.sk/i/zyYvb-xVGqa-_g" alt="Пример костюма">
+        <div class="inspo-caption">👔 Мужской образ</div>
+    </div>
+    <div class="inspo-item" onclick="openModal('https://getfile.dokpub.com/yandex/get/Ваша_ссылка_3')">
+        <img src="https://getfile.dokpub.com/yandex/get/https://yadi.sk/i/zyYvb-xVGqa-_g" alt="Аксессуары">
+        <div class="inspo-caption">💐 Аксессуары</div>
+    </div>
+</div>
+
+            <!-- Примеры одежды для гостей -->
+            <div class="outfit-examples">
+                <div class="outfit-title">✨ Рекомендации по одежде ✨</div>
+                <div class="outfit-grid">
+                    <div class="outfit-card">
+                        <div class="outfit-icon">👗</div>
+                        <h4>Для дам</h4>
+                        <p>Платья миди/макси<br>в тёплых тонах<br>Цветочный принт<br>Русский стиль приветствуется</p>
+                    </div>
+                    <div class="outfit-card">
+                        <div class="outfit-icon">👔</div>
+                        <h4>Для мужчин</h4>
+                        <p>Костюм светлых тонов<br>Рубашка пастельных цветов<br>Аксессуар в цветовой гамме</p>
+                    </div>
+                    <div class="outfit-card">
+                        <div class="outfit-icon">👠</div>
+                        <h4>Что стоит избегать</h4>
+                        <p>Белый, чёрный<br>Слишком яркие кислотные цвета<br>Повседневная одежда</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ссылка на Pinterest -->
+            <div class="style-link">
+                <a href="https://www.pinterest.com/search/pins/?q=%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B0%20%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9%20%D1%81%D1%82%D0%B8%D0%BB%D1%8C%20%D0%BE%D0%B4%D0%B5%D0%B6%D0%B4%D0%B0%20%D0%B3%D0%BE%D1%81%D1%82%D0%B5%D0%B9" target="_blank">
+                    <i class="fab fa-pinterest"></i> Больше идей на Pinterest
+                </a>
+            </div>
+        </div>
+
+        <div class="russian-quote">
+            <i class="fas fa-balalaika"></i> Гуляй, да не забывай — жениха с невестой прославляй! <i class="fas fa-accordion"></i><br>
+            Просим подтвердить присутствие до <strong>1 июня 2026</strong> любым удобным способом.
+        </div>
+        <footer>
+            С любовью, Герман и Ольга 🌻
+        </footer>
+    </div>
+</div>
+
+<script>
+    // ДАТА СВАДЬБЫ: 8 августа 2026, 16:00
+    const weddingDate = new Date(2026, 7, 8, 16, 0, 0);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('days').innerText = '0';
+            document.getElementById('hours').innerText = '0';
+            document.getElementById('minutes').innerText = '0';
+            document.getElementById('seconds').innerText = '0';
+            const messageDiv = document.querySelector('.countdown-box .countdown-timer')?.nextElementSibling;
+            if (messageDiv) messageDiv.innerHTML = "🎉 Сегодня наш великий день! Добро пожаловать! 🎉";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (86400000)) / (3600000));
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        document.getElementById('days').innerText = days;
+        document.getElementById('hours').innerText = hours < 10 ? '0'+hours : hours;
+        document.getElementById('minutes').innerText = minutes < 10 ? '0'+minutes : minutes;
+        document.getElementById('seconds').innerText = seconds < 10 ? '0'+seconds : seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
