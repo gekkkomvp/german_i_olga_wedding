@@ -329,7 +329,99 @@
             color: #8b7355;
         }
 
-        /* Примеры одежды */
+        /* АДАПТИВНАЯ СЕТКА ДЛЯ ФОТО */
+        .inspo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .inspo-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .inspo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .inspo-item img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .inspo-caption {
+            text-align: center;
+            padding: 10px;
+            font-size: clamp(11px, 3vw, 13px);
+            color: #4a3724;
+            font-weight: 500;
+            background: white;
+        }
+
+        /* Телефоны */
+        @media (max-width: 480px) {
+            .inspo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.6rem;
+            }
+            .inspo-caption {
+                padding: 6px;
+                font-size: 10px;
+            }
+            .outfit-card {
+                min-width: 130px;
+            }
+            .color-circle {
+                width: 50px;
+                height: 50px;
+            }
+            .invitation-card {
+                padding: 1rem;
+            }
+            .border-russian::before {
+                border-width: 1px;
+            }
+        }
+
+        /* Планшеты */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .inspo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 0.8rem;
+            }
+        }
+
+        /* Компьютеры */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .event-details {
+                gap: 1.5rem;
+            }
+            .detail-card {
+                min-width: 150px;
+            }
+            .inspo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+
+        /* Большие экраны */
+        @media (min-width: 1025px) {
+            .inspo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+        }
+
         .outfit-examples {
             text-align: center;
         }
@@ -435,33 +527,41 @@
             z-index: 1;
         }
 
-        @media (max-width: 480px) {
-            .invitation-card {
-                padding: 1rem;
-            }
-            .border-russian::before {
-                border-width: 1px;
-            }
-            .outfit-card {
-                min-width: 130px;
-            }
-            .color-circle {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .event-details {
-                gap: 1.5rem;
-            }
-            .detail-card {
-                min-width: 150px;
-            }
-        }
-
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -482,7 +582,7 @@
         </div>
         <div class="invite-text">
             Мы, как полагается на Руси, 7 раз подумали и решили в горестях и радостях быть вместе, <br>
-			скрепив наш союз браком! <br>
+            скрепив наш союз браком! <br>
             Имеем честь пригласить Вас разделить с нами радость бракосочетания.
         </div>
 
@@ -496,7 +596,7 @@
             <div class="detail-card">
                 <i class="fas fa-hourglass-half"></i>
                 <h3>Время</h3>
-                <p>16:00</p>
+                <p>15:00</p>
                 <small>Сбор гостей</small>
             </div>
             <div class="detail-card">
@@ -529,8 +629,7 @@
             <div class="info-block">
                 <i class="fas fa-dress"></i> <i class="fas fa-tshirt"></i>
                 <h4>🌟 Дресс-код</h4>
-                <p>Наш праздник пройдет в стиля «А-ля рус». Будем рады, если в своих нарядах вы поддержите цветовую палитру русского народного стиля.
-					Элементы в виде платка или ободка будут гармонично подходить к стилистике нашего торжества. Но можно и классический наряд :)</p>
+                <p>Наш праздник пройдет в стиля «А-ля рус». Будем рады, если в своих нарядах вы поддержите цветовую палитру русского народного стиля. Элементы в виде платка или ободка будут гармонично подходить к стилистике нашего торжества. Но можно и классический наряд :)</p>
             </div>
             <div class="info-block">
                 <i class="fas fa-gift"></i>
@@ -577,24 +676,21 @@
                 </div>
             </div>
 
-<!-- БЛОК С АДАПТИВНЫМИ ФОТО -->
-<div class="style-gallery">
-    <div class="style-title" style="text-align: center; font-family: 'Petrobrus', cursive; font-size: clamp(1.3rem, 5vw, 1.8rem); color: #9e2d1c;">
-        <i class="fas fa-camera"></i> Примеры образов
-    </div>
-    
-    <div class="inspo-grid">
-        <div class="inspo-item" onclick="openModal('https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/e9aef094c28aa91e28e27d6fa41b268d540fbc16/clother.jpg'')">
-            <img src="https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/e9aef094c28aa91e28e27d6fa41b268d540fbc16/clother.jpg'" alt="Женский образ">
-            <div class="inspo-caption">👗 Женский образ</div>
-        </div>
-        <div class="inspo-item" onclick="openModal('https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/e9aef094c28aa91e28e27d6fa41b268d540fbc16/clother.jpg'')">
-            <img src="https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/87c23993e8a37101c6b011cf36efedb4e9e27f82/clother3man.jpg'" alt="Мужской образ">
-            <div class="inspo-caption">👔 Мужской образ</div>
-        </div>
-
-    </div>
-</div>
+            <!-- БЛОК С АДАПТИВНЫМИ ФОТО -->
+            <div class="style-title">
+                <i class="fas fa-camera"></i> Примеры образов
+            </div>
+            
+            <div class="inspo-grid">
+                <div class="inspo-item" onclick="openModal('https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/e9aef094c28aa91e28e27d6fa41b268d540fbc16/clother.jpg')">
+                    <img src="https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/e9aef094c28aa91e28e27d6fa41b268d540fbc16/clother.jpg" alt="Женский образ">
+                    <div class="inspo-caption">👗 Женский образ</div>
+                </div>
+                <div class="inspo-item" onclick="openModal('https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/87c23993e8a37101c6b011cf36efedb4e9e27f82/clother3man.jpg')">
+                    <img src="https://raw.githubusercontent.com/gekkkomvp/german_i_olga_wedding/87c23993e8a37101c6b011cf36efedb4e9e27f82/clother3man.jpg" alt="Мужской образ">
+                    <div class="inspo-caption">👔 Мужской образ</div>
+                </div>
+            </div>
 
             <!-- Примеры одежды для гостей -->
             <div class="outfit-examples">
@@ -636,9 +732,17 @@
     </div>
 </div>
 
+<!-- Модальное окно для увеличения фото -->
+<div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Увеличенное фото">
+    </div>
+</div>
+
 <script>
     // ДАТА СВАДЬБЫ: 8 августа 2026, 16:00
-    const weddingDate = new Date(2026, 7, 8, 16, 0, 0);
+    const weddingDate = new Date(2026, 7, 8, 15, 0, 0);
 
     function updateCountdown() {
         const now = new Date();
@@ -667,6 +771,28 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // Модальное окно для фото
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    function openModal(imgSrc) {
+        modal.style.display = 'flex';
+        modalImg.src = imgSrc;
+    }
+
+    if (closeModal) {
+        closeModal.onclick = function() {
+            modal.style.display = 'none';
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
 </script>
 </body>
 </html>
