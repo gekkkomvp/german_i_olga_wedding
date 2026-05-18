@@ -627,6 +627,64 @@
             }
         }
     </style>
+	
+	<!-- МАКСИМАЛЬНАЯ БЛОКИРОВКА ТЁМНОЙ ТЕМЫ ДЛЯ ANDROID -->
+<script>
+    (function() {
+        // Принудительно удаляем любые следы тёмной темы
+        document.documentElement.style.colorScheme = 'light';
+        document.documentElement.setAttribute('data-color-scheme', 'light');
+        document.documentElement.setAttribute('data-theme', 'light');
+        
+        // Переопределяем медиа-запрос prefers-color-scheme
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    color-scheme: light !important;
+                    --color-bg: #fef7e6 !important;
+                    --color-primary: #9e2d1c !important;
+                    --color-secondary: #c6913e !important;
+                    --color-dark: #2c241a !important;
+                    --color-light: #fff8e7 !important;
+                    --color-accent: #8b3c1c !important;
+                }
+                body {
+                    background-color: #fef7e6 !important;
+                    color: #2c241a !important;
+                }
+                .invitation-card {
+                    background: #fffaf0 !important;
+                    backdrop-filter: none !important;
+                }
+                .color-circle {
+                    box-shadow: none !important;
+                    border: 2px solid #ddd !important;
+                }
+                .names {
+                    background: #2b5e2b !important;
+                    background-clip: text !important;
+                    -webkit-background-clip: text !important;
+                    color: transparent !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Для Android Chrome — удаляем классы тёмной темы каждые 100 мс
+        if (/Android/i.test(navigator.userAgent)) {
+            setInterval(function() {
+                if (document.documentElement.classList.contains('dark') || 
+                    document.documentElement.getAttribute('data-color-scheme') === 'dark') {
+                    document.documentElement.style.colorScheme = 'light';
+                    document.documentElement.setAttribute('data-color-scheme', 'light');
+                    document.body.style.backgroundColor = '#fef7e6';
+                }
+            }, 100);
+        }
+    })();
+</script>
+	
 </head>
 <body>
 <div class="pattern-bg"></div>
@@ -786,7 +844,6 @@
         </div>
 
         <div class="russian-quote">
-            <i class="fas fa-balalaika"></i> Гуляй, да не забывай — жениха с невестой прославляй! <i class="fas fa-accordion"></i><br>
             Просим подтвердить присутствие до <strong>1 июля 2026</strong> любым удобным способом.
         </div>
         <footer>
