@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-	<meta name="color-scheme" content="light only">
-	<meta name="supported-color-schemes" content="light">
-	<meta name="format-detection" content="telephone=no">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light">
+    <meta name="format-detection" content="telephone=no">
     <title>Свадебное приглашение | Герман & Ольга</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Petrobrus&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -28,10 +29,12 @@
 
         body {
             background: var(--color-bg);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: var(--color-dark);
             line-height: 1.5;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .pattern-bg {
@@ -56,12 +59,26 @@
 
         .invitation-card {
             background: rgba(255, 252, 240, 0.95);
-            backdrop-filter: blur(2px);
             border-radius: var(--border-radius-card) clamp(24px, 6vw, 48px) var(--border-radius-card) clamp(24px, 6vw, 48px);
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,200,0.8);
             border: 1px solid #dac29c;
             padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 1.8rem) clamp(2rem, 6vw, 3rem);
             transition: all 0.3s ease;
+        }
+
+        /* Отключаем blur на мобильных (он искажает цвета) */
+        @media (max-width: 768px) {
+            .invitation-card {
+                backdrop-filter: none !important;
+                background: #fffaf0 !important;
+            }
+            .detail-card {
+                backdrop-filter: none !important;
+                background: #ffffff !important;
+            }
+            .pattern-bg {
+                display: none;
+            }
         }
 
         .border-russian {
@@ -81,8 +98,9 @@
             pointer-events: none;
         }
 
+        /* Шрифты с fallback для iOS */
         .title-russian {
-            font-family: 'Petrobrus', 'Georgia', cursive;
+            font-family: 'Petrobrus', 'Georgia', 'Times New Roman', cursive;
             font-size: clamp(1.8rem, 8vw, 3rem);
             text-align: center;
             color: var(--color-primary);
@@ -107,16 +125,27 @@
         }
 
         .names {
-            font-family: 'Petrobrus', cursive;
+            font-family: 'Petrobrus', 'Georgia', 'Times New Roman', cursive;
             font-size: clamp(2rem, 8vw, 3.3rem);
             text-align: center;
             line-height: 1.2;
             margin: 0.5rem 0;
+            background: #2b5e2b; /* fallback для Android */
             background: linear-gradient(135deg, #2b5e2b, #c4802c);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-shadow: none;
+        }
+
+        /* Для Android — принудительный цвет */
+        @media (max-width: 768px) {
+            .names {
+                background: #2b5e2b !important;
+                background-clip: text !important;
+                -webkit-background-clip: text !important;
+                color: transparent !important;
+            }
         }
 
         .divider {
@@ -149,7 +178,6 @@
 
         .detail-card {
             background: #ffffffcc;
-            backdrop-filter: blur(4px);
             padding: clamp(0.8rem, 3vw, 1rem) clamp(1rem, 4vw, 1.8rem);
             border-radius: clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px) clamp(35px, 8vw, 48px) clamp(12px, 4vw, 16px);
             text-align: center;
@@ -159,14 +187,9 @@
             box-shadow: 0 6px 14px rgba(0,0,0,0.05);
             transition: transform 0.2s ease;
         }
-        .detail-card:hover {
-            transform: translateY(-5px);
-            background: #fff5e6;
-        }
-        @media (max-width: 768px) {
-            .detail-card:hover {
-                transform: none;
-            }
+        .detail-card:active {
+            transform: scale(0.98);
+            transition: 0.05s;
         }
         .detail-card i {
             font-size: clamp(1.5rem, 6vw, 2rem);
@@ -280,7 +303,7 @@
 
         .style-title {
             text-align: center;
-            font-family: 'Petrobrus', cursive;
+            font-family: 'Petrobrus', 'Georgia', 'Times New Roman', cursive;
             font-size: clamp(1.3rem, 5vw, 1.8rem);
             color: var(--color-primary);
             margin-bottom: 0.5rem;
@@ -317,8 +340,16 @@
             transition: transform 0.2s;
         }
 
-        .color-circle:hover {
-            transform: scale(1.05);
+        /* Android фикс для цветовых кругов */
+        @media (max-width: 768px) {
+            .color-circle {
+                box-shadow: none !important;
+                border: 2px solid #ddd;
+            }
+        }
+
+        .color-circle:active {
+            transform: scale(0.95);
         }
 
         .color-name {
@@ -349,9 +380,8 @@
             transition: all 0.3s ease;
         }
 
-        .inspo-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        .inspo-item:active {
+            transform: scale(0.97);
         }
 
         .inspo-item img {
@@ -459,9 +489,8 @@
             transition: all 0.3s ease;
         }
 
-        .outfit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        .outfit-card:active {
+            transform: scale(0.97);
         }
 
         .outfit-icon {
@@ -498,9 +527,8 @@
             transition: 0.2s;
         }
 
-        .style-link a:hover {
-            background: #aa4a23;
-            transform: scale(1.02);
+        .style-link a:active {
+            transform: scale(0.97);
         }
 
         .russian-quote {
@@ -565,6 +593,17 @@
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
+        }
+
+        /* iOS фикс для шрифтов */
+        @supports (-webkit-touch-callout: none) {
+            .title-russian, 
+            .names,
+            .style-title,
+            .rsvp-section h3 {
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
         }
     </style>
 </head>
@@ -632,7 +671,7 @@
             <div class="info-block">
                 <i class="fas fa-dress"></i> <i class="fas fa-tshirt"></i>
                 <h4>🌟 Дресс-код</h4>
-                <p>Наш праздник пройдет в стиля «А-ля рус». Будем рады, если в своих нарядах вы поддержите цветовую палитру русского народного стиля. Элементы в виде платка или ободка будут гармонично подходить к стилистике нашего торжества. Но можно и классический наряд :)</p>
+                <p>Наш праздник пройдет в стиле «А-ля рус». Будем рады, если в своих нарядах вы поддержите цветовую палитру русского народного стиля. Элементы в виде платка или ободка будут гармонично подходить к стилистике нашего торжества. Но можно и классический наряд :)</p>
             </div>
             <div class="info-block">
                 <i class="fas fa-gift"></i>
@@ -668,13 +707,13 @@
                     <div class="color-desc">Базовый</div>
                 </div>
                 <div class="color-item">
-                    <div class="color-circle" style="background: #8D775F;"></div>
-                    <div class="color-name">Песчаная дюна</div>
+                    <div class="color-circle" style="background: #DDBEA9;"></div>
+                    <div class="color-name">В самый раз</div>
                     <div class="color-desc">Дополнительный</div>
                 </div>
                 <div class="color-item">
-                    <div class="color-circle" style="background: #D5BF86;"></div>
-                    <div class="color-name">Соломенный</div>
+                    <div class="color-circle" style="background: #FFE8D6;"></div>
+                    <div class="color-name">Серенада</div>
                     <div class="color-desc">Нежный акцент</div>
                 </div>
             </div>
@@ -726,7 +765,7 @@
         </div>
 
         <div class="russian-quote">
-            <i class="fas fa-balalaika"></i> Гуляй, да не забывай — жениха с невестой прославляй! <i class="fas fa-accordion"></i><br>
+
             Просим подтвердить присутствие до <strong>1 июля 2026</strong> любым удобным способом.
         </div>
         <footer>
@@ -744,7 +783,7 @@
 </div>
 
 <script>
-    // ДАТА СВАДЬБЫ: 8 августа 2026, 16:00
+    // ДАТА СВАДЬБЫ: 8 августа 2026, 15:00
     const weddingDate = new Date(2026, 7, 8, 15, 0, 0);
 
     function updateCountdown() {
@@ -795,70 +834,6 @@
         if (event.target == modal) {
             modal.style.display = 'none';
         }
-		
-		/* ФИКСЫ ДЛЯ ANDROID И IOS */
-
-/* Отключаем blur на мобильных (он искажает цвета) */
-@media (max-width: 768px) {
-    .invitation-card {
-        backdrop-filter: none !important;
-        background: #fffaf0 !important;
-    }
-    .detail-card {
-        backdrop-filter: none !important;
-        background: #ffffff !important;
-    }
-    .pattern-bg {
-        display: none; /* Отключаем узоры на мобильных */
-    }
-}
-
-/* Фикс для Android — принудительные цвета */
-@media (max-width: 768px) {
-    .color-circle {
-        box-shadow: none !important;
-        border: 2px solid #ddd;
-    }
-    .names {
-        background: #2b5e2b !important;
-        background-clip: text !important;
-        -webkit-background-clip: text !important;
-        color: transparent !important;
-    }
-}
-
-/* Фикс для iOS — шрифты */
-@supports (-webkit-touch-callout: none) {
-    .title-russian, 
-    .names,
-    .style-title,
-    .rsvp-section h3 {
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Принудительная загрузка шрифта на iOS */
-    body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-}
-
-/* Универсальный фикс для всех мобильных */
-@media (max-width: 768px) {
-    .invitation-card {
-        box-shadow: 0 15px 35px -10px rgba(0,0,0,0.2);
-    }
-    
-    /* Убираем hover-эффекты */
-    .detail-card:active,
-    .outfit-card:active,
-    .btn-map:active {
-        transform: scale(0.98);
-        transition: 0.05s;
-    }
-}
-		
     }
 </script>
 </body>
