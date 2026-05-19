@@ -948,35 +948,6 @@ html, body {
     }
     
     // ===== ПРИНУДИТЕЛЬНОЕ ОТКЛЮЧЕНИЕ ТЁМНОЙ ТЕМЫ НА ANDROID =====
-    (function() {
-        // Принудительно устанавливаем светлую тему
-        document.documentElement.style.colorScheme = 'light';
-        document.body.style.backgroundColor = '#fef7e6';
-        
-        // Создаём защитный стиль
-        const style = document.createElement('style');
-        style.textContent = `
-            :root { color-scheme: light !important; forced-color-adjust: none !important; }
-            html { background-color: #fef7e6 !important; }
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        `;
-        document.head.appendChild(style);
-        
-        // Для Android — дополнительная защита
-        if (/Android/i.test(navigator.userAgent)) {
-            document.documentElement.classList.remove('dark', 'dark-mode', 'dark-theme');
-            document.documentElement.setAttribute('data-color-scheme', 'light');
-        }
-        
-        // Следим за изменением системной темы
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (e.matches) {
-                document.documentElement.style.colorScheme = 'light';
-                document.body.style.backgroundColor = '#fef7e6';
-            }
-        });
-    })();
-</script>
 // === ЖЁСТКАЯ БЛОКИРОВКА ТЁМНОЙ ТЕМЫ ===
 (function() {
     // Принудительно устанавливаем фон на все элементы
@@ -1026,5 +997,7 @@ html, body {
         }
     });
 })();
+</script>
+
 </body>
 </html>
