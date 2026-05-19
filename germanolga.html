@@ -938,21 +938,55 @@
         });
     })();
     
-    // ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ ПРОКРУТКЕ
-    (function(){
-        let elements = document.querySelectorAll('.title-russian, .subtitle, .names, .divider, .invite-text, .detail-card, .location-block, .countdown-box, .info-block, .style-gallery, .color-item, .outfit-card, .inspo-item, .russian-quote, footer');
-        elements.forEach(el => el.classList.add('reveal'));
-        function check(){
-            let h = window.innerHeight;
-            document.querySelectorAll('.reveal').forEach(el => {
-                if(el.getBoundingClientRect().top < h - 80) el.classList.add('active');
-            });
-        }
-        window.addEventListener('load', check);
-        window.addEventListener('scroll', check);
-        window.addEventListener('resize', check);
-        check();
-    })();
+// ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ ПРОКРУТКЕ (улучшенная версия)
+(function() {
+    // Функция добавления классов
+    function initReveal() {
+        let elements = document.querySelectorAll('.title-russian, .subtitle, .names, .divider, .invite-text, .detail-card, .location-block, .countdown-box, .info-block, .style-gallery, .color-item, .outfit-card, .inspo-item, .russian-quote, footer, .style-title, .style-subtitle, .color-palette');
+        
+        elements.forEach(el => {
+            if (!el.classList.contains('reveal')) {
+                el.classList.add('reveal');
+            }
+        });
+    }
+    
+    // Функция проверки видимости
+    function checkReveal() {
+        let windowHeight = window.innerHeight;
+        let revealPoint = 100;
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            let rect = el.getBoundingClientRect();
+            let topPosition = rect.top;
+            
+            if (topPosition < windowHeight - revealPoint) {
+                el.classList.add('active');
+            }
+        });
+    }
+    
+    // Запускаем инициализацию сразу
+    initReveal();
+    
+    // Запускаем проверку после загрузки всего контента
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkReveal, 50);
+            initReveal();
+        });
+    } else {
+        setTimeout(checkReveal, 50);
+    }
+    
+    // Запускаем при прокрутке
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('resize', checkReveal);
+    
+    // Дополнительная проверка через 500 мс (на случай, если что-то грузится медленно)
+    setTimeout(checkReveal, 500);
+    setTimeout(checkReveal, 1000);
+})();
 </script>
 </body>
 </html>
