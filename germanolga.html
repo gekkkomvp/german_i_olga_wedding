@@ -29,6 +29,39 @@
             --border-radius-card: clamp(32px, 8vw, 64px);
         }
 
+/* КРАЙНИЙ СПОСОБ — отключаем все темы */
+* {
+    background-color: initial !important;
+}
+
+html, body {
+    background-color: #fef7e6 !important;
+}
+
+.invitation-card {
+    background: #fffaf0 !important;
+}
+
+.detail-card {
+    background: #ffffff !important;
+}
+
+.location-block {
+    background: #faf1df !important;
+}
+
+.countdown-box {
+    background: #efe3ce !important;
+}
+
+.info-block {
+    background: #fef3e0 !important;
+}
+
+.style-gallery {
+    background: #fffaf0 !important;
+}
+
         /* ПРИНУДИТЕЛЬНАЯ СВЕТЛАЯ ТЕМА */
         :root {
             color-scheme: light !important;
@@ -944,5 +977,54 @@
         });
     })();
 </script>
+// === ЖЁСТКАЯ БЛОКИРОВКА ТЁМНОЙ ТЕМЫ ===
+(function() {
+    // Принудительно устанавливаем фон на все элементы
+    const forceLightTheme = function() {
+        document.documentElement.style.backgroundColor = '#fef7e6';
+        document.documentElement.style.colorScheme = 'light';
+        document.body.style.backgroundColor = '#fef7e6';
+        document.body.style.background = '#fef7e6';
+        
+        // Удаляем любые классы тёмной темы
+        document.documentElement.classList.remove('dark', 'dark-mode', 'dark-theme', 'dark');
+        document.body.classList.remove('dark', 'dark-mode', 'dark-theme', 'dark');
+        
+        // Добавляем атрибуты светлой темы
+        document.documentElement.setAttribute('data-color-scheme', 'light');
+        document.documentElement.setAttribute('data-theme', 'light');
+    };
+    
+    // Выполняем сразу
+    forceLightTheme();
+    
+    // Выполняем каждые 500 мс (на случай, если браузер меняет фон после загрузки)
+    setInterval(forceLightTheme, 500);
+    
+    // Для Android — дополнительная защита
+    if (/Android/i.test(navigator.userAgent)) {
+        // Создаём наблюдатель за изменениями атрибутов
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes') {
+                    forceLightTheme();
+                }
+            });
+        });
+        
+        observer.observe(document.documentElement, { attributes: true });
+        observer.observe(document.body, { attributes: true });
+    }
+    
+    // Блокируем медиа-запрос prefers-color-scheme
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (e.matches) {
+            forceLightTheme();
+            // Дополнительная задержка для принуждения
+            setTimeout(forceLightTheme, 10);
+            setTimeout(forceLightTheme, 100);
+        }
+    });
+})();
 </body>
 </html>
