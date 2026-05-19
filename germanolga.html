@@ -938,55 +938,31 @@
         });
     })();
     
-// ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ ПРОКРУТКЕ (улучшенная версия)
-(function() {
-    // Функция добавления классов
-    function initReveal() {
-        let elements = document.querySelectorAll('.title-russian, .subtitle, .names, .divider, .invite-text, .detail-card, .location-block, .countdown-box, .info-block, .style-gallery, .color-item, .outfit-card, .inspo-item, .russian-quote, footer, .style-title, .style-subtitle, .color-palette');
-        
-        elements.forEach(el => {
-            if (!el.classList.contains('reveal')) {
-                el.classList.add('reveal');
-            }
-        });
-    }
+// ПРОСТАЯ ВЕРСИЯ ПЛАВНОГО ПОЯВЛЕНИЯ
+document.addEventListener('DOMContentLoaded', function() {
+    // Добавляем класс всем элементам
+    const items = document.querySelectorAll('.title-russian, .subtitle, .names, .divider, .invite-text, .detail-card, .location-block, .countdown-box, .info-block, .style-gallery, .color-item, .outfit-card, .inspo-item, .russian-quote, footer');
+    items.forEach(item => item.classList.add('reveal'));
     
-    // Функция проверки видимости
-    function checkReveal() {
-        let windowHeight = window.innerHeight;
-        let revealPoint = 100;
+    // Проверяем видимость при прокрутке
+    function checkVisibility() {
+        const reveals = document.querySelectorAll('.reveal');
+        const windowHeight = window.innerHeight;
+        const revealPoint = 100;
         
-        document.querySelectorAll('.reveal').forEach(el => {
-            let rect = el.getBoundingClientRect();
-            let topPosition = rect.top;
-            
-            if (topPosition < windowHeight - revealPoint) {
+        reveals.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < windowHeight - revealPoint) {
                 el.classList.add('active');
             }
         });
     }
     
-    // Запускаем инициализацию сразу
-    initReveal();
-    
-    // Запускаем проверку после загрузки всего контента
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(checkReveal, 50);
-            initReveal();
-        });
-    } else {
-        setTimeout(checkReveal, 50);
-    }
-    
-    // Запускаем при прокрутке
-    window.addEventListener('scroll', checkReveal);
-    window.addEventListener('resize', checkReveal);
-    
-    // Дополнительная проверка через 500 мс (на случай, если что-то грузится медленно)
-    setTimeout(checkReveal, 500);
-    setTimeout(checkReveal, 1000);
-})();
+    // Запускаем при загрузке и прокрутке
+    checkVisibility();
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('resize', checkVisibility);
+});
 </script>
 </body>
 </html>
