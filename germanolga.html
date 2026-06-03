@@ -63,17 +63,20 @@
             color-adjust: exact !important;
         }
 
-        .pattern-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(circle at 10% 20%, rgba(0, 70, 128, 0.03) 2%, transparent 2.5%),
-                              repeating-linear-gradient(45deg, rgba(200, 160, 110, 0.02) 0px, rgba(200, 160, 110, 0.02) 2px, transparent 2px, transparent 8px);
-            pointer-events: none;
-            z-index: 0;
-        }
+.pattern-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #faf5e8;
+    background-image: linear-gradient(45deg, rgba(160, 100, 60, 0.06) 25%, transparent 25%),
+                      linear-gradient(-45deg, rgba(160, 100, 60, 0.06) 25%, transparent 25%);
+    background-size: 40px 40px;
+    background-position: 0 0, 0 20px;
+    pointer-events: none;
+    z-index: 0;
+}
 
         .container {
             max-width: 900px;
@@ -850,9 +853,7 @@
         </footer>
 		 <div class="russian-quote">
             По всем вопросам обращаться к <strong>жениху</strong> +79276944500
-		<div class="russian-quote">
             или к <strong>невесте</strong> +79376574969
-        </div>
         </div>
     </div>
 </div>
